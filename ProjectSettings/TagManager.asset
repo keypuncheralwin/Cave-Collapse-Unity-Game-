@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Box
+  - Lava
   layers:
   - Default
   - TransparentFX
@@ -11,12 +13,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Wall
+  - Background
+  - Box
+  - Lava
+  - Post Process
   - 
   - 
   - 
@@ -40,4 +42,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3104351593
+    locked: 0
+  - name: Ground
+    uniqueID: 788683317
+    locked: 0
+  - name: Wall
+    uniqueID: 3301112437
+    locked: 0
+  - name: Box
+    uniqueID: 2505557011
+    locked: 0
+  - name: Player
+    uniqueID: 1947167797
+    locked: 0
+  - name: Lava
+    uniqueID: 3927817091
     locked: 0

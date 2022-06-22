@@ -14,12 +14,16 @@ public class PlayerController : MonoBehaviour
     RaycastHit2D wallCheckHit;
     private float hangTime;
     private float wallJumpCounter = 0;
+    Animator playerAnimator;
+    CapsuleCollider2D myCollider;
     
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<PlayerInfo>();
         rb = GetComponent<Rigidbody2D> ();
+        playerAnimator = GetComponent<Animator>();
+        myCollider = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -28,7 +32,8 @@ public class PlayerController : MonoBehaviour
     Movement();
     }
     void Movement()
-    {
+    {   
+        if(player.playerDied){return;}
         //ground check
         player.isGrounded = Physics2D.OverlapCircle(player.groundCheck.position, player.groundSize, player.whatIsGround);
         player.isOnBox = Physics2D.OverlapCircle(player.groundCheck.position, player.groundSize, player.whatIsBox);
@@ -43,7 +48,12 @@ public class PlayerController : MonoBehaviour
         //change sprite direction and update isFacingRight status
         bool playerHasHorizontalSpeed = Mathf.Abs(rb.velocity.x) > Mathf.Epsilon;
         if(playerHasHorizontalSpeed){
+            playerAnimator.SetBool("isRunning",true);
             transform.localScale = new Vector2 (Mathf.Sign(rb.velocity.x), 1f);
+        }else if(!player.isGrounded && !player.isWallSliding){
+            playerAnimator.SetBool("isRunning",true);
+        }else{
+            playerAnimator.SetBool("isRunning",false);
         }
         if(transform.localScale.x == 1) isFacingRight = true; else isFacingRight = false;       
         
@@ -71,6 +81,7 @@ public class PlayerController : MonoBehaviour
         if(player.isGrounded && jumped || jumped && jumpCounter < player.jumpLimit || jumped && player.isWallSliding && wallJumpCounter < player.jumpLimit){
             rb.velocity = new Vector2(rb.velocity.x, player.jumpVelocity);
             jumpBufferCounter = 0;
+            playerAnimator.SetBool("isRunning",true);
         }
         
         //stomp
@@ -91,7 +102,7 @@ public class PlayerController : MonoBehaviour
             // Debug.DrawRay(transform.position, new Vector2(player.wallDistance, 0), Color.red);
         }else{
             wallCheckHit = Physics2D.Raycast(transform.position, new Vector2(-player.wallDistance, 0), player.wallDistance, player.whatIsBox);
-            Debug.DrawRay(transform.position, new Vector2(-player.wallDistance, 0), Color.blue);
+            // Debug.DrawRay(transform.position, new Vector2(-player.wallDistance, 0), Color.blue);
         }
         if (wallCheckHit && !player.isGrounded && horizontalInput !=0){
             player.isWallSliding = true;
@@ -101,6 +112,7 @@ public class PlayerController : MonoBehaviour
         }
         if (player.isWallSliding ){
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -player.wallSlideSpeed, 10f));
+            
         }
         if(Input.GetKeyDown(KeyCode.UpArrow) && player.isWallSliding){
             wallJumpCounter+=1;
@@ -111,10 +123,19 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         Debug.Log("Triggered : " + other.gameObject.name);
-        if(other.gameObject.tag == "Bar"){
+        if(other.gameObject.tag == "Lava"){
+            player.playerDied = true;
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.AddForce(transform.up * 1000);
+            rb.AddTorque(180, ForceMode2D.Force);
+            myCollider.enabled = false;
+            // Invoke("destroy", 5f);
             Debug.LogError("PLAYER DIED");
         }
         
+    }
+    private void destroy(){
+        Destroy(gameObject);
     }
     
 }

@@ -8,7 +8,7 @@ public class GenerateBoxes : MonoBehaviour
     public Transform player;
     public float respawnTime = 2f;
     private Vector2 screenBounds;
-    public float playerOffset = 12.5f;
+    public float playerOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -18,22 +18,18 @@ public class GenerateBoxes : MonoBehaviour
     }
 
     private void spawnBox(){
+        if(player == null){return;}
         if(GameObject.FindGameObjectsWithTag("Box").Length > 80) {
             return;
         }
-        // if(GameObject.FindGameObjectsWithTag("Box").Length  % 20 == 0 && respawnTime !< 0.1){
-        //     Debug.Log("increase difficulty");
-        //     Debug.Log(player.transform.position.y);
-        //     respawnTime = respawnTime - 0.2f;
-        //     Debug.Log(respawnTime);
 
-        // }
         GameObject selectedPiece = boxes[Random.Range(0,boxes.Length-1)];
         GameObject a = Instantiate(selectedPiece);
         
         float boxSideGen = Random.Range(-4.27f, 4.27f);
         a.transform.position = new Vector2(boxSideGen,player.transform.position.y + playerOffset);
-        
+        a.GetComponent<Rigidbody2D>().AddForce(transform.up * 400);
+        a.GetComponent<Rigidbody2D>().AddTorque(180, ForceMode2D.Force);
     }
     
 
@@ -41,6 +37,9 @@ public class GenerateBoxes : MonoBehaviour
         while(true){
             yield return new WaitForSeconds(respawnTime);
             spawnBox();
+            Invoke("spawnBox", 0.5f);
+            Invoke("spawnBox", 1);
+            Invoke("spawnBox", 1.5f);
         }
     }
 

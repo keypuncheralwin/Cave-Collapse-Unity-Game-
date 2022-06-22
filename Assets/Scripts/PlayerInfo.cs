@@ -22,5 +22,6 @@ public class PlayerInfo : MonoBehaviour
     public bool isWallSliding = false;
     public LayerMask whatIsBox;
     public bool isOnBox;
+    public bool playerDied = false;
     
 }
