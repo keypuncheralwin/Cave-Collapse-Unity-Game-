@@ -1,2 +1,8 @@
 # Cave Collapse (Unity-Game)
-Cave Collapse is a 2d mobile game made in unity. You're an archaeologist/adventurer who discovered a hidden ancient castle. All of a sudden you fall into a pit and everything around you starts to collapse. You have to try and  avoid the collapsing items by jumping on them to try and escape.
+You're an archaeologist exploring an ancient cave when all of a sudden the floor beneath you collapses. You Fall into a lava pit but you're able to stay alive by hopping on to of the debris falling around you. Try and survive by hopping on the falling debris but be careful not get hit by the debris.
+
+Use the arrow keys to move. The lava will slowly start to rise faster. How long can you last?
+
+Originally built for mobile devices. Stay posted for the mobile version of the game!
+
+[Play the game in the browser here](https://keypuncheralwin.itch.io/lava-rising)

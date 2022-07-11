@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Box
   - Lava
+  - MenuLava
+  - explosion
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Box
   - Lava
   - Post Process
-  - 
+  - Final
   - 
   - 
   - 
@@ -48,6 +50,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 788683317
+    locked: 0
+  - name: explosion
+    uniqueID: 3840954735
     locked: 0
   - name: Wall
     uniqueID: 3301112437
