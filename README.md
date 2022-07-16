@@ -6,3 +6,5 @@ Use the arrow keys to move. The lava will slowly start to rise faster. How long 
 Originally built for mobile devices. Stay posted for the mobile version of the game!
 
 [Play the game in the browser here](https://keypuncheralwin.itch.io/lava-rising)
+or
+[Download it from the Android Play store here](https://play.google.com/store/apps/details?id=com.keypunchergames.lavarising&fbclid=IwAR0vs355yPA13DUBdMSJ0eGQiskz-xvSvLJ4NkCsXmujqhECccMZOOaJKC8)
